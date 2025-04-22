@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://byc7pxrhr66i5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x5ned"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_uco7u"]
+sky_material = SubResource("ProceduralSkyMaterial_x5ned")
+
+[sub_resource type="Environment" id="Environment_48sws"]
+background_mode = 2
+sky = SubResource("Sky_uco7u")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48sws")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.979575, -0.161009, 0.12045, 0, 0.599024, 0.800731, -0.201078, 0.784377, -0.586789, 0, 8.62376, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(33.2899, 0, 0, 0, 0.241988, 0, 0, 0, 19.5028, 4.11451, 0, 0)
+size = Vector3(0.881958, 1, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(9.40407, 0, 0, 0, 1, 0, 0, 0, 0.440079, 1.41973, 2.54117, 6.70499)
+size = Vector3(1.31543, 4.90833, 1)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.44314, 0, 0, 0, 1, -7.7295, 1.65659, 1.63204)
+radius = 0.694466
+height = 3.44596
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.44314, 0, 0, 0, 1, -7.7295, 1.65659, -2.27694)
+radius = 0.694466
+height = 3.44596
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.44314, 0, 0, 0, 1, -7.7295, 1.65659, -6.03259)
+radius = 0.694466
+height = 3.44596
