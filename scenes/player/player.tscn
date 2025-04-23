@@ -1,59 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://burbtobjhspw0"]
+[gd_scene load_steps=4 format=3 uid="uid://burbtobjhspw0"]
 
-[ext_resource type="PackedScene" uid="uid://ccrly1uq67yuj" path="res://addons/player/Player.glb" id="1_kk6w3"]
+[ext_resource type="PackedScene" uid="uid://dlpcv8s31qqdj" path="res://addons/player/Player.glb" id="1_kk6w3"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_87ker"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6bw2b"]
-radius = 0.466373
-height = 2.01157
+radius = 0.400523
+height = 1.57821
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_yykcf"]
-
-[node name="Player" instance=ExtResource("1_kk6w3")]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("2_87ker")
 
-[node name="Armature" parent="." index="0"]
-unique_name_in_owner = true
-visible = false
-
-[node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/rotation = Quaternion(-0.50054, 0.49946, 0.50054, 0.49946)
-bones/1/rotation = Quaternion(-6.45211e-11, -1.23089e-10, -0.00908979, 0.999959)
-bones/2/rotation = Quaternion(-3.52458e-10, 1.93528e-10, -0.70065, 0.713505)
-bones/2/scale = Vector3(1, 1, 1)
-bones/4/scale = Vector3(1, 0.999999, 1)
-bones/5/rotation = Quaternion(6.49267e-10, 3.36532e-08, -0.0120455, 0.999927)
-bones/5/scale = Vector3(1, 1, 1)
-bones/6/rotation = Quaternion(0.707107, -0.707107, 8.5217e-09, -5.33851e-08)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.702728, 0.711458, 0.000759095, -0.000768539)
-bones/7/scale = Vector3(1, 0.999999, 1)
-bones/8/rotation = Quaternion(-1.32395e-10, 3.34224e-08, -0.00186243, 0.999998)
-bones/9/rotation = Quaternion(-0.704053, 0.710148, -8.32749e-09, 5.36147e-08)
-bones/10/rotation = Quaternion(0.00640985, 0.999979, 0.0010802, -6.98948e-06)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(4.66767e-10, -2.17193e-08, -0.00640986, 0.999979)
-bones/11/scale = Vector3(1, 1, 1)
-bones/13/rotation = Quaternion(-4.37114e-08, -0.00108022, 0.999999, 4.72179e-11)
-bones/13/scale = Vector3(1, 1, 1)
-bones/14/rotation = Quaternion(-3.97328e-10, -4.37096e-08, 0.00908979, 0.999959)
-bones/15/rotation = Quaternion(7.35216e-15, 2.65828e-15, 0.70065, 0.713505)
-bones/15/scale = Vector3(1, 1, 1)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_6bw2b")
-
-[node name="CameraPivot" type="Node3D" parent="." index="2"]
+[node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot" index="0"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, -0.6, 0.3, -1.4)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
+[node name="Body" parent="." instance=ExtResource("1_kk6w3")]
 unique_name_in_owner = true
-transform = Transform3D(0.93, 0, 0, 0, 1, 0, 0, 0, 0.93, 0, 0.9, 0)
-mesh = SubResource("CapsuleMesh_yykcf")
-skeleton = NodePath("../CollisionShape3D")
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999004, 0.0446133, 0, -0.0446133, 0.999004, 0, 0.790965, 0)
+shape = SubResource("CapsuleShape3D_6bw2b")
