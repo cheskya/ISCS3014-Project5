@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkdrthsbeyu5u"]
+[gd_scene load_steps=5 format=3 uid="uid://bkdrthsbeyu5u"]
+
+[ext_resource type="PackedScene" uid="uid://burbtobjhspw0" path="res://scenes/player/player.tscn" id="1_xf2ck"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_34kfv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,10 +21,13 @@ glow_enabled = true
 environment = SubResource("Environment_v8714")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 7.1, 0)
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.240967)
 use_collision = true
-size = Vector3(16.4, 1, 16.8)
+size = Vector3(26.7, 1, 24.9)
+
+[node name="Player" parent="." instance=ExtResource("1_xf2ck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
