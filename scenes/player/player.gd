@@ -6,12 +6,14 @@ extends CharacterBody3D
 @export_group("Movement")
 @export var move_speed = 8.0
 @export var acceleration = 20.0
-
+@export var rotation_speed = 12.0
 
 var _camera_input_direction = Vector2.ZERO
+var _last_movement_direction = Vector3.BACK
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
+@onready var _skin = %Armature
 
 
 func _input(event: InputEvent) -> void:
@@ -48,3 +50,8 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
+	
+	if move_direction.length() > 0.2:
+		_last_movement_direction = move_direction
+	var target_angle = Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
+	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)

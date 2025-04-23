@@ -10,6 +10,9 @@ height = 1.8
 [node name="Player" instance=ExtResource("1_kk6w3")]
 script = ExtResource("2_87ker")
 
+[node name="Armature" parent="." index="0"]
+unique_name_in_owner = true
+
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/rotation = Quaternion(-0.50054, 0.49946, 0.50054, 0.49946)
 bones/0/scale = Vector3(1, 1, 1)
