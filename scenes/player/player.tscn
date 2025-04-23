@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://burbtobjhspw0"]
+[gd_scene load_steps=4 format=3 uid="uid://burbtobjhspw0"]
 
 [ext_resource type="PackedScene" uid="uid://ccrly1uq67yuj" path="res://addons/player/Player.glb" id="1_kk6w3"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="2_87ker"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6bw2b"]
 radius = 0.3
 height = 1.8
 
 [node name="Player" instance=ExtResource("1_kk6w3")]
+script = ExtResource("2_87ker")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/rotation = Quaternion(-0.50054, 0.49946, 0.50054, 0.49946)
@@ -38,7 +40,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_6bw2b")
 
 [node name="CameraPivot" type="Node3D" parent="." index="2"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" index="0"]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, -0.6, 0.3, -1.4)
