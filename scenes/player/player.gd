@@ -11,10 +11,14 @@ extends CharacterBody3D
 var _camera_input_direction = Vector2.ZERO
 var _last_movement_direction = Vector3.BACK
 
+var bullet = load("res://scenes/player/bullet.tscn")
+var instance
+
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin = %Body
-
+@onready var _gun_anim = $Gun/AnimationPlayer
+@onready var _gun_barrel = $Gun/RayCast3D
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
@@ -37,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
 	_camera_pivot.rotation.x = clamp(_camera_pivot.rotation.x, -PI / 3.0, PI / 3.0)
 	_camera_pivot.rotation.y -= _camera_input_direction.x * delta
-	
+
 	_camera_input_direction = Vector2.ZERO
 	
 	var raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -55,3 +59,11 @@ func _physics_process(delta: float) -> void:
 		_last_movement_direction = move_direction
 	var target_angle = Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
 	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
+	
+	if Input.is_action_pressed("shoot"):
+		if !_gun_anim.is_playing():
+			_gun_anim.play("shoot")
+			instance = bullet.instantiate()
+			instance.position = _gun_barrel.global_position
+			instance.transform.basis = _gun_barrel.global_transform.basis
+			get_parent().add_child(instance)

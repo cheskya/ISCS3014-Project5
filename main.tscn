@@ -35,3 +35,16 @@ size = Vector3(26.7, 1, 24.9)
 
 [node name="Player" parent="." instance=ExtResource("1_xf2ck")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-6.03732, 0, -1.17074, 0, 1, 0, 123.266, 0, -0.0573405, 3.61888, 2.08427, 4.34396)
+use_collision = true
+collision_layer = 3
+collision_mask = 2
+size = Vector3(0.001, 1, 1)

@@ -1,11 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://burbtobjhspw0"]
+[gd_scene load_steps=9 format=3 uid="uid://burbtobjhspw0"]
 
 [ext_resource type="PackedScene" uid="uid://dlpcv8s31qqdj" path="res://addons/player/Player.glb" id="1_kk6w3"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_87ker"]
+[ext_resource type="PackedScene" uid="uid://bbfirj2bc07cm" path="res://addons/gun/Gun.glb" id="3_1l62a"]
+
+[sub_resource type="GDScript" id="GDScript_7lvp1"]
+script/source = "extends Node3D
+
+@onready var _camera: Camera3D = $Camera3D
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE 
+
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6bw2b"]
 radius = 0.400523
 height = 1.57821
+
+[sub_resource type="Animation" id="Animation_6xrps"]
+resource_name = "shoot"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.326029, 0.603175, 0.459649), Vector3(-0.326, 0.603, 0.5), Vector3(-0.326029, 0.603175, 0.459649)]
+}
+
+[sub_resource type="Animation" id="Animation_dh48v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.326029, 0.603175, 0.459649)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dvcyk"]
+_data = {
+"RESET": SubResource("Animation_dh48v"),
+"shoot": SubResource("Animation_6xrps")
+}
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("2_87ker")
@@ -13,6 +64,7 @@ script = ExtResource("2_87ker")
 [node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+script = SubResource("GDScript_7lvp1")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
@@ -25,3 +77,15 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999004, 0.0446133, 0, -0.0446133, 0.999004, 0, 0.790965, 0)
 shape = SubResource("CapsuleShape3D_6bw2b")
+
+[node name="Gun" parent="." instance=ExtResource("3_1l62a")]
+transform = Transform3D(1.27522, 0, 0, 0, 1.106, 0, 0, 0, 1.45214, -0.326029, 0.603175, 0.459649)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Gun"]
+libraries = {
+"": SubResource("AnimationLibrary_dvcyk")
+}
+
+[node name="RayCast3D" type="RayCast3D" parent="Gun"]
+transform = Transform3D(1, 0, 0, 0, 1.25264, 0, 0, 0, 1.19178, 0, 0.169422, 0.312092)
+target_position = Vector3(0, 0, 1)
