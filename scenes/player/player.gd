@@ -17,8 +17,8 @@ var instance
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin = %Body
-@onready var _gun_anim = $Gun/AnimationPlayer
-@onready var _gun_barrel = $Gun/RayCast3D
+@onready var _gun_anim = $CameraPivot/Gun/AnimationPlayer
+@onready var _gun_barrel = $CameraPivot/Gun/RayCast3D
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
