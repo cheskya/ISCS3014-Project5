@@ -56,13 +56,6 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
-<<<<<<< HEAD
-=======
-	
-	if move_direction.length() > 0.2:
-		_last_movement_direction = move_direction
-	var target_angle = Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
-	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
 	
 	if Input.is_action_pressed("shoot"):
 		if !_gun_anim.is_playing():
@@ -71,4 +64,3 @@ func _physics_process(delta: float) -> void:
 			instance.position = _gun_barrel.global_position
 			instance.transform.basis = _gun_barrel.global_transform.basis
 			get_parent().add_child(instance)
->>>>>>> nina/shooting
