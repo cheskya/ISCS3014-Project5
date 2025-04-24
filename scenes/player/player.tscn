@@ -76,7 +76,7 @@ transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, -0.6, 
 target_position = Vector3(0, 0, -1)
 collision_mask = 84
 
-[node name="TextureRect" type="TextureRect" parent="CameraPivot/Camera3D"]
+[node name="Crosshair" type="TextureRect" parent="CameraPivot/Camera3D"]
 anchors_preset = -1
 anchor_right = 0.184
 anchor_bottom = 0.179

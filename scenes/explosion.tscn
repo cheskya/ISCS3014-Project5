@@ -19,6 +19,7 @@ material = SubResource("StandardMaterial3D_n768j")
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
 amount = 25
 speed_scale = 1.82
 explosiveness = 1.0

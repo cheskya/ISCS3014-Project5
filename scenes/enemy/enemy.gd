@@ -1,28 +1,32 @@
 extends CSGCylinder3D
 
 var lives = 3
+var has_exploded = false
 signal enemy_killed(enemy)
 
 @onready var label = $Label3D
-var explosion_scene = preload("res://scenes/explosion.tscn") 
+@onready var hitbox = $HitBox
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+var ExplosionScene = preload("res://scenes/explosion.tscn")
 
 func _on_hit_box_body_entered(body: Node3D) -> void:
+	if has_exploded:
+		return
+
 	lives -= 1
 	label.text = "lives: " + str(lives)
-	if (lives <= 0):
-		var explosion = explosion_scene.instantiate()
+
+	if lives <= 0:
+		has_exploded = true
+		hitbox.set_deferred("monitoring", false)
+
+		var explosion = ExplosionScene.instantiate()
 		get_parent().add_child(explosion)
-		explosion.global_transform.origin = global_transform.origin
+		explosion.global_position = global_position
+		explosion.emitting = true
+
+		await get_tree().create_timer(0.05).timeout
+		explosion.emitting = false
 
 		enemy_killed.emit(self)
-		queue_free() 
+		queue_free()
