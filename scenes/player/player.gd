@@ -18,10 +18,15 @@ var instance
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin = %Body
 @onready var _gun_anim = $CameraPivot/Gun/AnimationPlayer
-@onready var _gun_barrel = $CameraPivot/Gun/RayCast3D
+@onready var _gun_raycast = %GunRayCast
+@onready var _cam_raycast = %CamRayCast
 @onready var _shoot_timer = $ShootTimer
 
 var is_shooting = false
+var init_gun_raycast
+
+func _ready():
+	init_gun_raycast = _gun_raycast.target_position
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
@@ -65,10 +70,17 @@ func _physics_process(delta: float) -> void:
 			is_shooting = true
 			_gun_anim.play("shoot")
 			instance = bullet.instantiate()
-			instance.position = _gun_barrel.global_position
-			instance.transform.basis = _gun_barrel.global_transform.basis
+			instance.global_position = _gun_raycast.global_position
+			instance.global_basis = _gun_raycast.global_basis
 			_shoot_timer.start()
-			get_parent().add_child(instance)
+			add_child(instance)
+	
+	if _cam_raycast.is_colliding():
+		# if colliding with something, adjust gun raycast
+		_gun_raycast.target_position = _cam_raycast.target_position * -1
+		print(_cam_raycast.get_collider().get_name())
+	else:
+		_gun_raycast.target_position = init_gun_raycast
 
 
 func _on_shoot_timer_timeout() -> void:
