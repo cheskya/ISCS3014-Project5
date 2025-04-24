@@ -59,6 +59,7 @@ radius = 0.400523
 height = 1.57821
 
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 17
 script = ExtResource("2_87ker")
 
 [node name="CameraPivot" type="Node3D" parent="."]

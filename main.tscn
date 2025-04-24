@@ -24,24 +24,32 @@ environment = SubResource("Environment_v8714")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 7.1, 0)
 shadow_enabled = true
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_xf2ck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
+
+[node name="Enemies" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 24
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Enemies"]
+transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, 0, 2.79234, 8.90735)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Enemies"]
+transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, -4.20453, 2.79234, 8.90735)
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Enemies"]
+transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, -8.61185, 2.79234, 8.90735)
+
+[node name="Indestructibles" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 18
+
+[node name="Wall" type="CSGBox3D" parent="Indestructibles"]
 transform = Transform3D(1, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)
 use_collision = true
 size = Vector3(1, 1.7085, 1.24023)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Floor" type="CSGBox3D" parent="Indestructibles"]
 transform = Transform3D(34.1912, 0, 0, 0, 1.03465, 0, 0, 0, 34.1912, 0.5, 0.5, 0.240967)
 use_collision = true
 size = Vector3(26.7, 1, 24.9)
-
-[node name="Player" parent="." instance=ExtResource("1_xf2ck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, 0, 2.79234, 8.90735)
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, -4.20453, 2.79234, 8.90735)
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1.71408, 0, 0, 0, 2.10685, 0, 0, 0, 1.71408, -8.61185, 2.79234, 8.90735)
