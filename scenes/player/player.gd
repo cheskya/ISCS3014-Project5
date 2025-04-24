@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 	
 	_camera_input_direction = Vector2.ZERO
 	
+	_skin.global_rotation.y = _skin.rotation.y + (_camera_pivot.rotation.y - _skin.rotation.y)
+	
 	var raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var forward = _camera.global_basis.z
 	var right = _camera.global_basis.x
@@ -50,8 +52,3 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
-	
-	if move_direction.length() > 0.2:
-		_last_movement_direction = move_direction
-	var target_angle = Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
-	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
