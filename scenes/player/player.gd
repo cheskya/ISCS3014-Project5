@@ -76,9 +76,7 @@ func _physics_process(delta: float) -> void:
 			add_child(instance)
 	
 	if _cam_raycast.is_colliding():
-		# if colliding with something, adjust gun raycast
-		_gun_raycast.target_position = _cam_raycast.target_position * -1
-		print(_cam_raycast.get_collider().get_name())
+		_gun_raycast.target_position = _gun_raycast.to_local(_cam_raycast.get_collision_point())
 	else:
 		_gun_raycast.target_position = init_gun_raycast
 
