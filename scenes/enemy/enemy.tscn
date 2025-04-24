@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_7vac8"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cbfpa"]
+height = 1.803
+radius = 0.624383
 
 [node name="Enemy" type="CSGCylinder3D" groups=["enemies"]]
 transform = Transform3D(1.49023, 0, 0, 0, 2.1942, 0, 0, 0, 1.49023, 0, 0, 0)

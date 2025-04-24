@@ -11,7 +11,7 @@ extends CharacterBody3D
 var _camera_input_direction = Vector2.ZERO
 var _last_movement_direction = Vector3.BACK
 
-var bullet = load("res://scenes/player/bullet.tscn")
+var bullet = load("res://scenes/bullet/bullet.tscn")
 var instance
 
 @onready var _camera_pivot: Node3D = %CameraPivot
