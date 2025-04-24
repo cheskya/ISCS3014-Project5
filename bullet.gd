@@ -17,10 +17,15 @@ func _ready():
 func _process(delta):
 	linear_velocity = velocity
 	if ray.is_colliding():
+		if (ray.get_collider().is_in_group("enemies")):
+			print("enemy")
+		else:
+			print("indestructible")
 		mesh.visible = false
 		particles.emitting = true
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
+
 
 func _on_timer_timeout():
 	queue_free()

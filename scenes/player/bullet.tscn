@@ -27,7 +27,8 @@ material = SubResource("StandardMaterial3D_t30th")
 size = Vector3(0.04, 0.04, 0.04)
 
 [node name="Bullet" type="RigidBody3D"]
-collision_layer = 2
+collision_layer = 4
+collision_mask = 26
 script = ExtResource("1_b6w8w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -38,8 +39,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1es14")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(0.06, 0, 0, 0, -0.05, -1.90255e-08, 0, 7.54979e-09, -0.126, -0.00279381, -0.00106352, 0.115784)
-visible = false
 target_position = Vector3(0, 0, 1)
+collision_mask = 10
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.034, 0, 0, 0, 0.05, 0, 0, 0, 0.669, 0, 0, 0.000548601)

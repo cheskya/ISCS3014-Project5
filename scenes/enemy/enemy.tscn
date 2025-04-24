@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvkcgxwx2sbwm"]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_7vac8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cbfpa"]
+
+[node name="Enemy" type="CSGCylinder3D" groups=["enemies"]]
+transform = Transform3D(1.49023, 0, 0, 0, 2.1942, 0, 0, 0, 1.49023, 0, 0, 0)
+use_collision = true
+collision_layer = 24
+collision_mask = 4
+script = ExtResource("1_7vac8")
+
+[node name="HitBox" type="Area3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0493542, 0.0200486, -0.731619)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+transform = Transform3D(-1.01957, 0, 8.91336e-08, 0, 1.01957, 0, -8.91336e-08, 0, -1.01957, -0.0493541, -0.0200486, -0.731619)
+shape = SubResource("CylinderShape3D_cbfpa")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0493542, 0.0200486, -0.731619)
+pixel_size = 0.006
+text = "lives: 3"
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
