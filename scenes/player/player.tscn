@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://burbtobjhspw0"]
+[gd_scene load_steps=10 format=3 uid="uid://burbtobjhspw0"]
 
 [ext_resource type="PackedScene" uid="uid://dlpcv8s31qqdj" path="res://addons/player/Player.glb" id="1_kk6w3"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_87ker"]
+[ext_resource type="Texture2D" uid="uid://cwiepd2fgyw5r" path="res://addons/CrosshairImage-removebg-preview.png" id="2_amta8"]
 [ext_resource type="PackedScene" uid="uid://bbfirj2bc07cm" path="res://addons/gun/Gun.glb" id="3_1l62a"]
 
 [sub_resource type="GDScript" id="GDScript_7lvp1"]
@@ -10,7 +11,7 @@ script/source = "extends Node3D
 @onready var _camera: Camera3D = $Camera3D
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE 
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _process(delta: float) -> void:
 	pass
@@ -70,6 +71,21 @@ script = SubResource("GDScript_7lvp1")
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, -0.6, 0.3, -1.4)
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraPivot/Camera3D"]
+target_position = Vector3(0, 0, -1)
+collision_mask = 84
+
+[node name="TextureRect" type="TextureRect" parent="CameraPivot/Camera3D"]
+anchors_preset = -1
+anchor_right = 0.184
+anchor_bottom = 0.179
+offset_left = 560.0
+offset_top = 296.0
+offset_right = 384.032
+offset_bottom = 216.008
+texture = ExtResource("2_amta8")
+expand_mode = 1
 
 [node name="Gun" parent="CameraPivot" instance=ExtResource("3_1l62a")]
 transform = Transform3D(1.27522, 0, 0, 0, 1.106, 0, 0, 0, 1.45214, -0.326, -0.75, 0.46)
