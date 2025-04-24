@@ -48,7 +48,7 @@ use_collision = true
 collision_layer = 18
 
 [node name="Wall" type="CSGBox3D" parent="Indestructibles"]
-transform = Transform3D(1, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)
+transform = Transform3D(3.35366, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)
 use_collision = true
 size = Vector3(1, 1.7085, 1.24023)
 

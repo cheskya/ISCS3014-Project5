@@ -59,3 +59,7 @@ shoot={
 3d_physics/layer_3="Bullet"
 3d_physics/layer_4="Enemy"
 3d_physics/layer_5="Object"
+
+[physics]
+
+common/max_physics_steps_per_frame=10
