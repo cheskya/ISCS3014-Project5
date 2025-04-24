@@ -18,6 +18,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="Main" type="Node3D"]
+transform = Transform3D(0.492073, 0, 0, 0, 0.492073, 0, 0, 0, 0.492073, 4.64734, 2.82208, 2.12163)
 script = ExtResource("1_d0lrq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -50,11 +51,15 @@ collision_layer = 18
 [node name="Wall" type="CSGBox3D" parent="Indestructibles"]
 transform = Transform3D(1, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)
 use_collision = true
+collision_layer = 18
+collision_mask = 5
 size = Vector3(1, 1.7085, 1.24023)
 
 [node name="Floor" type="CSGBox3D" parent="Indestructibles"]
 transform = Transform3D(34.1912, 0, 0, 0, 1.03465, 0, 0, 0, 34.1912, 0.5, 0.5, 0.240967)
 use_collision = true
+collision_layer = 18
+collision_mask = 5
 size = Vector3(26.7, 1, 24.9)
 
 [connection signal="enemy_killed" from="Enemies/Enemy" to="." method="_on_enemy_enemy_killed"]

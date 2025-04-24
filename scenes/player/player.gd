@@ -19,6 +19,9 @@ var instance
 @onready var _skin = %Body
 @onready var _gun_anim = $CameraPivot/Gun/AnimationPlayer
 @onready var _gun_barrel = $CameraPivot/Gun/RayCast3D
+@onready var _shoot_timer = $ShootTimer
+
+var is_shooting = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
@@ -58,9 +61,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if Input.is_action_pressed("shoot"):
-		if !_gun_anim.is_playing():
+		if !is_shooting:
+			is_shooting = true
 			_gun_anim.play("shoot")
 			instance = bullet.instantiate()
 			instance.position = _gun_barrel.global_position
 			instance.transform.basis = _gun_barrel.global_transform.basis
+			_shoot_timer.start()
 			get_parent().add_child(instance)
+
+
+func _on_shoot_timer_timeout() -> void:
+	is_shooting = false
+	pass # Replace with function body.

@@ -39,6 +39,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1es14")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(0.06, 0, 0, 0, -0.05, -1.90255e-08, 0, 7.54979e-09, -0.126, -0.00279381, -0.00106352, 0.115784)
+visible = false
+enabled = false
 target_position = Vector3(0, 0, 1)
 collision_mask = 10
 
@@ -48,7 +50,6 @@ shape = SubResource("BoxShape3D_n6r41")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00451016, 0.0176702, -0.433911)
-visible = false
 emitting = false
 one_shot = true
 explosiveness = 1.0
