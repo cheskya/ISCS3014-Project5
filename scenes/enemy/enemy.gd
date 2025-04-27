@@ -1,4 +1,4 @@
-extends CSGCylinder3D
+extends StaticBody3D
 
 var lives = 3
 var has_exploded = false
@@ -6,10 +6,14 @@ signal enemy_killed(enemy)
 
 @onready var label = $Label3D
 @onready var hitbox = $HitBox
+@onready var explosion = $GPUParticles3D
+@onready var explosion_timer = $ExplosionTimer
+@onready var body = $Body
 
-var ExplosionScene = preload("res://scenes/explosion/explosion.tscn")
+func _ready():
+	explosion.emitting = false
 
-func _on_hit_box_body_entered(body: Node3D) -> void:
+func _on_hit_box_area_entered(area: Area3D) -> void:
 	if has_exploded:
 		return
 
@@ -19,14 +23,16 @@ func _on_hit_box_body_entered(body: Node3D) -> void:
 	if lives <= 0:
 		has_exploded = true
 		hitbox.set_deferred("monitoring", false)
+		explode()
 
-		var explosion = ExplosionScene.instantiate()
-		get_parent().add_child(explosion)
-		explosion.global_position = global_position
-		explosion.emitting = true
 
-		await get_tree().create_timer(0.05).timeout
-		explosion.emitting = false
+func explode():
+	body.hide()
+	label.hide()
+	explosion.emitting = true
+	explosion_timer.start()
 
-		enemy_killed.emit(self)
-		queue_free()
+
+func _on_explosion_timer_timeout() -> void:
+	get_parent().remove_child(self)
+	queue_free()

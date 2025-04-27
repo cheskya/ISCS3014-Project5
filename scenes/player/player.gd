@@ -67,7 +67,6 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
-	print(_camera.global_transform.basis.z)
 	
 	if Input.is_action_pressed("shoot"):
 		if !is_shooting:
