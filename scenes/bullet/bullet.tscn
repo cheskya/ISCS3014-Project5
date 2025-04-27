@@ -28,9 +28,12 @@ size = Vector3(0.04, 0.04, 0.04)
 
 [node name="Bullet" type="RigidBody3D"]
 collision_layer = 4
-collision_mask = 26
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
 continuous_cd = true
 script = ExtResource("1_b6w8w")
+speed = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, -0.000326371, 0.0499989, 0, -0.0499989, -0.000326371, -0.0020827, 0, 0.000297904)
