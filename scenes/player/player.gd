@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export_range(0.0, 1.0) var mouse_sensitivity = 0.25
 
 @export_group("Movement")
-@export var move_speed = 8.0
+@export var move_speed = 10.0
 @export var acceleration = 20.0
 @export var rotation_speed = 12.0
 
@@ -67,17 +67,13 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
-	#print(_gun.global_position)
 	
-	if Input.is_action_pressed("shoot"):
-		if !is_shooting:
-			is_shooting = true
-			instance = bullet.instantiate()
-			get_parent().add_child(instance)
-			instance.player = global_transform.basis.z
-			instance.global_transform = _gun_raycast.global_transform
-			_gun_anim.play("shoot")
-			_shoot_timer.start()
+	if Input.is_action_just_pressed("shoot"):
+		var bullet_instance = preload("res://scenes/bullet/bullet.tscn").instantiate()
+		get_parent().add_child(bullet_instance)
+		bullet_instance.global_transform = _gun.global_transform
+		bullet_instance.set_direction(_gun.global_transform.basis.z)
+
 	
 	if _cam_raycast.is_colliding():
 		_gun_raycast.target_position = _gun_raycast.to_local(_cam_raycast.get_collision_point())
@@ -87,4 +83,4 @@ func _physics_process(delta: float) -> void:
 
 func _on_shoot_timer_timeout() -> void:
 	is_shooting = false
-	pass # Replace with function body.
+	pass

@@ -1,69 +1,53 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnj8k4etmouic"]
+[gd_scene load_steps=8 format=3 uid="uid://bxbh2h65dqcu1"]
 
 [ext_resource type="Script" path="res://scenes/bullet/bullet.gd" id="1_b6w8w"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_n3m2u"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1es14"]
-albedo_color = Color(0.898437, 0.207381, 0.703948, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ca032"]
+albedo_color = Color(0.668272, 0.643646, 5.77569e-07, 1)
 emission_enabled = true
-emission = Color(0.597289, 0.423601, 0.12388, 1)
-emission_energy_multiplier = 8.1
+emission = Color(0.551626, 0.562238, 0, 1)
+emission_energy_multiplier = 16.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_n6r41"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ydnpw"]
+material = SubResource("StandardMaterial3D_ca032")
+radius = 0.05
+height = 0.1
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ixsa"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1axi"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dr78f"]
+spread = 180.0
 initial_velocity_min = 3.0
 initial_velocity_max = 5.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t30th"]
-albedo_color = Color(0.993971, 0.257631, 0.641562, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23432"]
+albedo_color = Color(1, 0.323658, 0.677354, 1)
 emission_enabled = true
-emission = Color(0.956538, 0, 0.182409, 1)
-emission_energy_multiplier = 8.0
+emission = Color(0.982648, 0, 0.347422, 1)
+emission_energy_multiplier = 10.04
 
-[sub_resource type="BoxMesh" id="BoxMesh_ax7xd"]
-material = SubResource("StandardMaterial3D_t30th")
-size = Vector3(0.04, 0.04, 0.04)
+[sub_resource type="BoxMesh" id="BoxMesh_3bnei"]
+material = SubResource("StandardMaterial3D_23432")
+size = Vector3(0.05, 0.05, 0.05)
 
-[node name="Bullet" type="RigidBody3D"]
-collision_layer = 4
-collision_mask = 0
-mass = 0.001
-gravity_scale = 0.0
-continuous_cd = true
+[node name="Bullet" type="Area3D" groups=["bullet", "indestructibles"]]
+collision_mask = 18
 script = ExtResource("1_b6w8w")
-speed = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, -0.000326371, 0.0499989, 0, -0.0499989, -0.000326371, -0.0020827, 0, 0.000297904)
-custom_aabb = AABB(0, 0, 0, 0.05, 0.05, 0)
-mesh = SubResource("BoxMesh_n3m2u")
-surface_material_override/0 = SubResource("StandardMaterial3D_1es14")
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(-0.0601739, -5.90319e-11, 0.00034047, -1.3358e-17, -0.05, -6.57495e-09, 0.000470515, -7.54956e-09, 0.0435425, 0.00046158, -0.00106352, -0.0308638)
-target_position = Vector3(0, 0, -1)
-collision_mask = 10
+mesh = SubResource("CapsuleMesh_ydnpw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0.000548601)
-shape = SubResource("BoxShape3D_n6r41")
+shape = SubResource("CapsuleShape3D_g1axi")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0174986, 0.00500541, -0.0374089)
 emitting = false
-lifetime = 0.5
+amount = 20
 one_shot = true
 explosiveness = 1.0
-fixed_fps = 10
-fract_delta = false
-process_material = SubResource("ParticleProcessMaterial_1ixsa")
-draw_pass_1 = SubResource("BoxMesh_ax7xd")
+process_material = SubResource("ParticleProcessMaterial_dr78f")
+draw_pass_1 = SubResource("BoxMesh_3bnei")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

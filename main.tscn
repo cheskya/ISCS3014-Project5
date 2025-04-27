@@ -33,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
 
 [node name="Enemies" type="CSGCombiner3D" parent="."]
 use_collision = true
-collision_layer = 24
+collision_layer = 2
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("2_l6v80")]
 transform = Transform3D(1.49023, 0, 0, 0, 2.1942, 0, 0, 0, 1.49023, 0, 3.08267, 10.6746)
@@ -46,16 +46,16 @@ transform = Transform3D(1.49023, 0, 0, 0, 2.1942, 0, 0, 0, 1.49023, -7.35761, 3.
 
 [node name="Indestructibles" type="CSGCombiner3D" parent="."]
 use_collision = true
-collision_layer = 18
+collision_layer = 16
 
-[node name="Wall" type="CSGBox3D" parent="Indestructibles"]
+[node name="Wall" type="CSGBox3D" parent="Indestructibles" groups=["indestructibles"]]
 transform = Transform3D(1, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)
 use_collision = true
 collision_layer = 18
 collision_mask = 5
 size = Vector3(1, 1.7085, 1.24023)
 
-[node name="Floor" type="CSGBox3D" parent="Indestructibles"]
+[node name="Floor" type="CSGBox3D" parent="Indestructibles" groups=["indestructibles"]]
 transform = Transform3D(34.1912, 0, 0, 0, 1.03465, 0, 0, 0, 34.1912, 0.5, 0.5, 0.240967)
 use_collision = true
 collision_layer = 18
