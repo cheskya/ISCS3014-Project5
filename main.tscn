@@ -31,18 +31,14 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("1_xf2ck")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
 
-[node name="Enemies" type="CSGCombiner3D" parent="."]
-use_collision = true
-collision_layer = 16
+[node name="Enemy" parent="." instance=ExtResource("2_l6v80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.36914, 12.1847)
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("2_l6v80")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.08267, 10.6746)
+[node name="Enemy2" parent="." instance=ExtResource("2_l6v80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.16234, 4.36914, 12.1847)
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("2_l6v80")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75826, 3.08267, 10.6746)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("2_l6v80")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2365, 3.08267, 10.6746)
+[node name="Enemy3" parent="." instance=ExtResource("2_l6v80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5145, 4.36914, 12.1847)
 
 [node name="Indestructibles" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -62,5 +58,3 @@ use_collision = true
 collision_layer = 18
 collision_mask = 5
 size = Vector3(26.7, 1, 24.9)
-
-[connection signal="enemy_killed" from="Enemies/Enemy" to="." method="_on_enemy_enemy_killed"]
