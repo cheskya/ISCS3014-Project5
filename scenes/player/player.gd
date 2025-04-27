@@ -67,16 +67,17 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	move_and_slide()
-	#print(_gun.global_position)
+	print(_camera.global_transform.basis.z)
 	
 	if Input.is_action_pressed("shoot"):
 		if !is_shooting:
 			is_shooting = true
 			instance = bullet.instantiate()
 			get_parent().add_child(instance)
-			instance.player = global_transform.basis.z
+			instance.direction = _camera_pivot.global_transform.basis.z
 			instance.global_transform = _gun_raycast.global_transform
 			_gun_anim.play("shoot")
+			instance.start()
 			_shoot_timer.start()
 	
 	if _cam_raycast.is_colliding():
@@ -87,4 +88,3 @@ func _physics_process(delta: float) -> void:
 
 func _on_shoot_timer_timeout() -> void:
 	is_shooting = false
-	pass # Replace with function body.

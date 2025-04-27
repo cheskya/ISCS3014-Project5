@@ -115,6 +115,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.790965, 0)
 shape = SubResource("CapsuleShape3D_6bw2b")
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
