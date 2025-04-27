@@ -29,7 +29,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_xf2ck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1, 0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1.93875, 0.9)
 
 [node name="Enemy" parent="." instance=ExtResource("2_l6v80")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.36914, 12.1847)
@@ -44,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5145, 4.36914, 12.1847)
 use_collision = true
 collision_layer = 16
 collision_mask = 5
+collision_priority = 2.0
 
 [node name="Wall" type="CSGBox3D" parent="Indestructibles"]
 transform = Transform3D(1, 0, 0, 0, 5.32, 0, 0, 0, 14.62, 10.2749, 4.2356, 0.238056)

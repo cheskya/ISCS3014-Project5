@@ -1,18 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvkcgxwx2sbwm"]
+[gd_scene load_steps=7 format=3 uid="uid://cvkcgxwx2sbwm"]
 
 [ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_7vac8"]
-[ext_resource type="PackedScene" uid="uid://bwn8wrj5iymdu" path="res://scenes/explosion/explosion.tscn" id="2_lsrgg"]
-[ext_resource type="PackedScene" uid="uid://bslmwyvk5qc27" path="res://addons/enemy/enemy.glb" id="3_mud4n"]
+[ext_resource type="PackedScene" uid="uid://bslmwyvk5qc27" path="res://addons/enemy/Enemy.glb" id="3_mud4n"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cbfpa"]
 height = 6.72674
 radius = 1.56301
 
-[node name="Enemy" type="StaticBody3D" groups=["enemies"]]
-collision_layer = 16
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y5lqw"]
+angle_min = 1.07288e-05
+angle_max = 720.0
+direction = Vector3(0, 0, 1)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 20.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n768j"]
+albedo_color = Color(0.482323, 0.498639, 0.508709, 1)
+emission_enabled = true
+emission = Color(0.168935, 0.176222, 0.196499, 1)
+emission_energy_multiplier = 4.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_qyvmf"]
+material = SubResource("StandardMaterial3D_n768j")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 8
 script = ExtResource("1_7vac8")
 
-[node name="Body" parent="." instance=ExtResource("3_mud4n")]
+[node name="Mesh" parent="." instance=ExtResource("3_mud4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.17115, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -20,7 +37,7 @@ transform = Transform3D(1.01957, 0, 0, 0, 1.01957, 0, 0, 0, 1.01957, 0, 0, 0)
 shape = SubResource("CylinderShape3D_cbfpa")
 
 [node name="HitBox" type="Area3D" parent="."]
-collision_layer = 16
+collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
@@ -32,9 +49,14 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.049
 pixel_size = 0.006
 text = "lives: 3"
 
-[node name="Explosion" parent="." instance=ExtResource("2_lsrgg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="Explosion" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 25
 one_shot = true
+speed_scale = 1.82
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_y5lqw")
+draw_pass_1 = SubResource("BoxMesh_qyvmf")
 
-[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]

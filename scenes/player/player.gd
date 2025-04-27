@@ -80,6 +80,7 @@ func _physics_process(delta: float) -> void:
 			_shoot_timer.start()
 	
 	if _cam_raycast.is_colliding():
+		#_gun.transform.looking_at(_gun.to_local(_cam_raycast.get_collision_point()), Vector3.UP)
 		_gun_raycast.target_position = _gun_raycast.to_local(_cam_raycast.get_collision_point())
 	else:
 		_gun_raycast.target_position = init_gun_raycast

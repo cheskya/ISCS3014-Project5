@@ -14,6 +14,9 @@ emission_energy_multiplier = 8.1
 size = Vector3(1.07959, 1.07104, 1)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ixsa"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
 initial_velocity_min = 3.0
 initial_velocity_max = 5.0
 
@@ -27,29 +30,31 @@ emission_energy_multiplier = 8.0
 material = SubResource("StandardMaterial3D_t30th")
 size = Vector3(0.04, 0.04, 0.04)
 
-[node name="Bullet" type="Area3D"]
+[node name="Bullet" type="CharacterBody3D" groups=["bullet"]]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0)
 collision_layer = 4
-collision_mask = 16
+collision_mask = 0
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_block_on_wall = false
 script = ExtResource("1_b6w8w")
+speed = 10.0
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 1)
+collision_mask = 24
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, -0.000326371, 0.0499989, 0, -0.0499989, -0.000326371, -0.0020827, 0, 0.000297904)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 custom_aabb = AABB(0, 0, 0, 0.05, 0.05, 0)
 mesh = SubResource("BoxMesh_n3m2u")
 surface_material_override/0 = SubResource("StandardMaterial3D_1es14")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(-0.0601739, -5.90319e-11, 0.00034047, -1.3358e-17, -0.05, -6.57495e-09, 0.000470515, -7.54956e-09, 0.0435425, 0.00046158, -0.00106352, -0.0308638)
-visible = false
-target_position = Vector3(0, 0, -1)
-collision_mask = 10
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00198975, -6.10354e-06, 0.000548601)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 shape = SubResource("BoxShape3D_n6r41")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0174986, 0.00500541, -0.0374089)
+[node name="Explosion" type="GPUParticles3D" parent="."]
 emitting = false
 lifetime = 0.5
 one_shot = true
@@ -62,12 +67,6 @@ draw_pass_1 = SubResource("BoxMesh_ax7xd")
 [node name="LifeTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-autostart = true
 
-[node name="ExplosionTimer" type="Timer" parent="."]
-wait_time = 0.5
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
-[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
